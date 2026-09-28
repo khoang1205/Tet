@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#8b0000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Tết 2027 🧧 - Hồ Sơ Tình Bạn Diệu Kỳ</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,400;0,600;0,700;1,500&family=Montserrat:wght@400;600;700;800;900&family=Be+Vietnam+Pro:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Floating Falling Petals Canvas (Zero-scroll, background only) -->
+  <canvas id="petal-canvas"></canvas>
+
+  <!-- Confetti Canvas for Fireworks/Celebrations -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Story App Container (Exact 100dvh, ZERO SCROLL) -->
+  <div class="story-app" id="story-app">
+
+    <!-- Top Story Header: Progress Bars & Audio Toggle -->
+    <header class="story-header">
+      <div class="story-progress-bar">
+        <div class="progress-segment active" data-step="0"><div class="fill"></div></div>
+        <div class="progress-segment" data-step="1"><div class="fill"></div></div>
+        <div class="progress-segment" data-step="2"><div class="fill"></div></div>
+        <div class="progress-segment" data-step="3"><div class="fill"></div></div>
+      </div>
+
+      <div class="story-controls">
+        <span class="story-step-badge" id="step-badge">MÀN 1/4</span>
+        <button id="music-toggle-btn" class="icon-control-btn" aria-label="Bật/Tắt Âm Thanh" type="button">
+          <span class="disk-icon" id="disk-icon">🎵</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Swaying Lanterns Decor -->
+    <div class="lantern lantern-left">🏮</div>
+    <div class="lantern lantern-right">🏮</div>
+
+    <!-- ==================== SCREENS SLIDER ==================== -->
+    <main class="story-slider" id="story-slider">
+
+      <!-- ==================== SCREEN 0: CỔNG GIAO THỪA & ĐIỀN TÊN ==================== -->
+      <section class="story-screen screen-0 active" id="screen-0">
+        <div class="screen-content hero-content">
+          <div class="festive-badge pulse-glow">
+            <span class="badge-dot"></span>
+            <span>TẾT ĐINH MÙI 2027 • ĐỘC QUYỀN</span>
+          </div>
+
+          <h1 class="main-title">
+            TÌNH BẠN<br>
+            <span class="glow-text">"DIỆU KỲ"</span> ✨
+          </h1>
+
+          <!-- Form Điền Tên: "Ai đây ta?" Không lộ trước tên để tránh dò tên -->
+          <div class="name-selection-card">
+            <label class="name-label" for="user-name-input">✨ Ai đây ta? 🤔</label>
+            <div class="name-input-group">
+              <input type="text" id="user-name-input" class="name-input" placeholder="Nhập tên..." autocomplete="off" autofocus>
+            </div>
+            <p class="name-error-msg hidden" id="name-error-msg">
+              ⚠️ Ủa ai zị, không đúng r má ơi!
+            </p>
+          </div>
+
+          <div class="hero-dialogue-box">
+            <div class="avatar-speaker" id="dialogue-avatar">🤫</div>
+            <div class="speech-bubble">
+              <p id="dialogue-text">Nhập tên bí mật rồi bấm <strong>Bắt đầu giải mã</strong> xem có đúng người không nha!</p>
+            </div>
+          </div>
+
+          <div class="hero-action-bottom">
+            <button class="btn-start-action" id="btn-start-story" type="button">
+              <span>BẮT ĐẦU GIẢI MÃ</span>
+              <span class="arrow-blink">👉</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== SCREEN 1: MÁY QUÉT TÌNH BẠN (INTERACTIVE SCANNER) ==================== -->
+      <section class="story-screen screen-1" id="screen-1">
+        <div class="screen-content scanner-content">
+          <div class="screen-header-mini">
+            <span class="mini-tag" id="scan-target-tag">MÀN 2: QUÉT DỮ LIỆU TÌNH BẠN</span>
+            <h2 class="mini-title">Phân Tích Dữ Liệu Tình Bạn</h2>
+          </div>
+
+          <!-- State A: Scanner Fingerprint Pad (Before Scan) -->
+          <div class="scanner-pad-wrapper" id="scanner-pad-area">
+            <div class="laser-scanner" id="laser-line"></div>
+            <div class="radar-circle" id="radar-circle"></div>
+
+            <div class="fingerprint-btn" id="fingerprint-btn">
+              <div class="fp-inner">
+                <span class="fp-icon">👆</span>
+                <span class="fp-ring"></span>
+              </div>
+            </div>
+
+            <p class="fp-instruction" id="fp-status-text">
+              <strong>ĐẶT VÀ GIỮ NGÓN TAY</strong><br>vào vòng tròn để quét dữ liệu
+            </p>
+          </div>
+
+          <!-- State B: 4 Spinning Revealed Cards (Appears after scanning) -->
+          <div class="revealed-dashboard hidden" id="revealed-dashboard">
+            <div class="warning-alert-bar" id="alert-bar-text">
+              <span class="alert-icon">🚨</span>
+              <span class="alert-text">CẢNH BÁO: DỮ LIỆU ĐÃ ĐƯỢC GIẢI MÃ!</span>
+            </div>
+
+            <!-- Grid of 4 Spinning Results -->
+            <div class="stats-spin-grid">
+              
+              <!-- ITEM 1: ẢNH CHỤP CHUNG -->
+              <div class="spin-item-box" id="spin-box-1">
+                <div class="item-inner">
+                  <div class="item-front">
+                    <span class="item-load-spinner"></span>
+                    <span class="item-front-text">Quét kho ảnh...</span>
+                  </div>
+                  <div class="item-back">
+                    <div class="item-value val-red" id="stat-val-photo">2 TẤM</div>
+                    <div class="item-label">📸 Ảnh Chụp Chung</div>
+                    <div class="item-sub" id="stat-sub-photo">Do tao lười chụp chứ mày lúc nào cũng xinh! 🌸</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ITEM 2: KÈO ĐI ĂN CHUNG -->
+              <div class="spin-item-box" id="spin-box-2">
+                <div class="item-inner">
+                  <div class="item-front">
+                    <span class="item-load-spinner"></span>
+                    <span class="item-front-text">Quét hóa đơn...</span>
+                  </div>
+                  <div class="item-back">
+                    <div class="item-value val-orange" id="stat-val-eating">N CUỘC</div>
+                    <div class="item-label">🍜 Kèo Đi Ăn Chung</div>
+                    <div class="item-sub" id="stat-sub-eating">Kèo ăn uống đếm không xuể, rủ là có mặt! 🤤🔥</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ITEM 3: TIN NHẮN CHAT -->
+              <div class="spin-item-box" id="spin-box-3">
+                <div class="item-inner">
+                  <div class="item-front">
+                    <span class="item-load-spinner"></span>
+                    <span class="item-front-text">Đo dung lượng chat...</span>
+                  </div>
+                  <div class="item-back">
+                    <div class="item-value val-yellow" id="stat-val-msg">999+ TIN</div>
+                    <div class="item-label">💬 Dung Lượng Chat</div>
+                    <div class="item-sub" id="stat-sub-msg">Buôn chuyện thâu đêm suốt sáng! 💬🔥</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ITEM 4: ĐIỂM THÂN THIẾT -->
+              <div class="spin-item-box item-highlight" id="spin-box-4">
+                <div class="item-inner">
+                  <div class="item-front">
+                    <span class="item-load-spinner"></span>
+                    <span class="item-front-text">AI chấm điểm...</span>
+                  </div>
+                  <div class="item-back back-highlight">
+                    <div class="item-value val-big" id="stat-val-score">100 / 100</div>
+                    <div class="item-label">📊 Điểm Thân Thiết</div>
+                    <div class="item-sub" id="stat-sub-score">Tình bạn 10 điểm không có nhưng! 💖✨</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <button class="btn-next-screen" id="btn-to-wheel" type="button">
+              <span>ĐI QUAY VÒNG MAY MẮN</span>
+              <span>👉</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== SCREEN 2: VÒNG QUAY MAY MẮN TẾT (WHEEL OF FORTUNE) ==================== -->
+      <section class="story-screen screen-2" id="screen-2">
+        <div class="screen-content wheel-content">
+          <div class="screen-header-mini">
+            <span class="mini-tag">MÀN 3: VẬN MỆNH ĐẦU NĂM</span>
+            <h2 class="mini-title">Vòng Xoay Tết May Mắn 2027</h2>
+          </div>
+
+          <!-- Wheel Area -->
+          <div class="wheel-stage">
+            <div class="wheel-pointer" id="wheel-pointer">▼</div>
+            <div class="wheel-canvas-wrapper">
+              <canvas id="wheel-canvas" width="300" height="300"></canvas>
+            </div>
+            <div class="wheel-center-pin" id="wheel-center-btn">QUAY!</div>
+          </div>
+
+          <!-- Status / Prize Output (Clickable to re-open popup) -->
+          <div class="wheel-result-banner" id="wheel-result-banner">
+            <p class="wheel-tip">👇 Bấm nút <strong>QUAY!</strong> ở giữa vòng tròn</p>
+          </div>
+
+          <div class="wheel-bottom-nav">
+            <button class="btn-next-screen" id="btn-to-gift" style="display: none;" disabled type="button">
+              <span>NHẬN LÌ XÌ & BỨC THƯ</span>
+              <span>👉</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== SCREEN 3: THẺ CÀO LÌ XÌ & BỨC THƯ TÂM SỰ ==================== -->
+      <section class="story-screen screen-3" id="screen-3">
+        <div class="screen-content gift-content">
+          <div class="screen-header-mini">
+            <span class="mini-tag">MÀN 4: MÓN QUÀ CUỐI CÙNG</span>
+            <h2 class="mini-title">Thẻ Cào Lì Xì Bí Mật</h2>
+            <p class="mini-sub">Lấy ngón tay cào sạch lớp nhũ vàng bên dưới:</p>
+          </div>
+
+          <!-- Scratch Card Container -->
+          <div class="scratch-card-container" id="scratch-container">
+            <!-- Hidden Underlying Surprise Card -->
+            <div class="scratch-underlayer">
+              <div class="secret-envelope-header">
+                <span class="stamp-pill">TẾT 2027</span>
+                <span class="heart-pulse">💌</span>
+                <h3 id="letter-title-text">Thân Gửi Thảo!</h3>
+              </div>
+
+              <div class="secret-text" id="letter-body-text">
+                <p><strong>Thân gửi mày,</strong></p>
+                <p>Năm qua tuy nhắn tin 999+ tin, đi ăn cùng nhau N cuộc kèo... Năm mới chúc mày visual rực rỡ, tiền vào như thác, thi cử/công việc đều xuất sắc nhé! 🌸</p>
+              </div>
+
+              <!-- Voucher Gift -->
+              <div class="voucher-ticket">
+                <div class="ticket-header" id="voucher-header-text">VOUCHER ĐỘC QUYỀN</div>
+                <div class="ticket-name" id="voucher-name-text">🎟️ Bao Ăn Kèo Thứ N+1 (Free 100%)</div>
+                <div class="ticket-meta">HSD: Vĩnh viễn (Cấm bùng kèo)</div>
+              </div>
+
+              <!-- MoMo Claim Box -->
+              <div class="momo-direct-box">
+                <a id="btn-momo-action" href="https://momo.vn" target="_blank" rel="noopener noreferrer" class="btn-momo-claim">
+                  <span>🧧 Bấm Nhận Lì Xì MoMo Ngay</span>
+                </a>
+                <button id="btn-qr-popup" class="btn-momo-qr" type="button">
+                  📱 Hoặc Quét Mã QR MoMo
+                </button>
+              </div>
+            </div>
+
+            <!-- Scratchable Golden Foil Canvas Overlay -->
+            <canvas id="scratch-canvas" class="scratch-canvas"></canvas>
+          </div>
+
+          <div class="scratch-status-bar" id="scratch-status-bar">
+            <span>✨ Tiến độ cào: <strong id="scratch-percent">0%</strong> (Cào > 50% để mở bung)</span>
+          </div>
+
+          <!-- Bottom Action: Restart / Replay -->
+          <div class="gift-footer-actions">
+            <button class="btn-restart-app" id="btn-restart-app" type="button">
+              🔄 Xem Lại Từ Đầu / Đổi Người
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- ==================== POPUP TRÚNG THƯỞNG VÒNG QUAY ==================== -->
+  <div id="prize-modal" class="prize-modal hidden">
+    <div class="prize-modal-dialog">
+      <div class="prize-icon-blast">🎉✨</div>
+      <h3 class="prize-modal-badge">CHÚC MỪNG BẠN ĐÃ TRÚNG</h3>
+      <h2 class="prize-modal-title" id="popup-prize-title">Tên Phần Thưởng</h2>
+      <div class="prize-modal-desc-box">
+        <p id="popup-prize-desc">Mô tả chi tiết giải thưởng...</p>
+      </div>
+      <div class="prize-modal-actions">
+        <button id="btn-prize-proceed" class="btn-primary-popup" type="button">
+          🎁 Nhận Quà & Mở Bức Thư
+        </button>
+        <button id="btn-prize-retry" class="btn-secondary-popup" type="button">
+          🔄 Quay Lại
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- QR Popup Modal (Zero-scroll modal) -->
+  <div id="qr-modal" class="qr-modal hidden">
+    <div class="qr-modal-dialog">
+      <button id="btn-close-qr" class="close-modal-btn" type="button">×</button>
+      <h3 class="qr-modal-title">Quét Mã MoMo Nhận Lì Xì 🧧</h3>
+      <p class="qr-modal-desc">Mở app MoMo trên điện thoại để quét mã bên dưới:</p>
+      <div class="qr-code-frame">
+        <img id="momo-qr-image" src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https%3A%2F%2Fmomo.vn" alt="Mã QR Lì Xì MoMo">
+      </div>
+      <p class="qr-modal-footer">✨ Chúc bạn năm mới vạn sự như ý, phát tài phát lộc! ✨</p>
+    </div>
+  </div>
+
+  <!-- App Script -->
+  <script src="script.js"></script>
+</body>
+</html>
