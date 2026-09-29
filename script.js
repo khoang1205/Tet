@@ -19,9 +19,9 @@ const PROFILES = {
     name: "Thảo",
     fullName: "Thảo 🌸",
     avatar: "🌸",
-    scanTag: "MÀN 2: QUÉT DỮ LIỆU CỦA THẢO",
+    scanTag: "SỔ KỶ NIỆM • THẢO",
     stats: {
-      photo: { val: "2 TẤM", sub: "Do tao lười giơ máy thôi chứ mày lúc nào cũng xinh! 🌸" },
+      photo: { val: "2 TẤM", sub: "Do toi lười giơ máy thôi chứ b lúc nào cũng xinh! 🌸" },
       eating: { val: "N CUỘC", sub: "Kèo ăn uống đếm không xuể, rủ là có mặt chiến tới bến! 🤤🔥" },
       msg: { val: "999+ TIN", sub: "Nhắn tin thâu đêm suốt sáng, buôn mòn màn hình! 💬🔥" },
       score: { val: "100 / 100", sub: "Tình bạn 10 điểm không có nhưng, luôn luôn tuyệt vời! 💖✨" }
@@ -29,7 +29,7 @@ const PROFILES = {
     letterTitle: "Thân Gửi Thảo! 🌸",
     letterBody: `
       <p><strong>Thân gửi Thảo,</strong></p>
-      <p>Năm qua tuy hai đứa nhắn với nhau <strong>999+ tin</strong>, đi ăn cùng nhau <strong>N cuộc kèo</strong>... Cảm ơn mày vì luôn là một đứa bạn tuyệt vời!</p>
+      <p>Năm qua tuy hai đứa nhắn với nhau <strong>999+ tin</strong>, đi ăn cùng nhau <strong>N cuộc kèo</strong>... Cảm ơn b vì luôn là một đứa bạn tuyệt vời!</p>
       <p>Năm mới 2027 chúc Thảo lúc nào cũng rạng rỡ xinh đẹp, tiền vào như thác lũ, việc gì cũng hanh thông và chuẩn bị tinh thần đi ăn tiếp kèo N+1 nhé! 🌸</p>
     `,
     voucherHeader: "VOUCHER ĐỘC QUYỀN CHO THẢO",
@@ -40,7 +40,7 @@ const PROFILES = {
     name: "Thanh",
     fullName: "Thanh ✨",
     avatar: "✨",
-    scanTag: "MÀN 2: QUÉT DỮ LIỆU CỦA THANH",
+    scanTag: "SỔ KỶ NIỆM • THANH",
     stats: {
       photo: { val: "0 TẤM", sub: "Tìm mỏi mắt không ra, ngỡ đâu đặc vụ ngầm FBI! 🕵️‍♀️" },
       eating: { val: "02 LẦN", sub: "Đếm 1 bàn tay mà vẫn còn thừa 3 ngón! 🤤" },
@@ -50,7 +50,7 @@ const PROFILES = {
     letterTitle: "Thân Gửi Thanh! ✨",
     letterBody: `
       <p><strong>Thân gửi Thanh,</strong></p>
-      <p>Tuy một năm qua đi ăn được đúng <strong>2 lần</strong>, ảnh chung <strong>0 tấm</strong>, tin nhắn <strong>0+ tin</strong> và độ thân thiết <strong>3/100</strong>... nhưng tao luôn rất trân trọng tình bạn này!</p>
+      <p>Tuy một năm qua đi ăn được đúng <strong>2 lần</strong>, ảnh chung <strong>0 tấm</strong>, tin nhắn <strong>0+ tin</strong> và độ thân thiết <strong>3/100</strong>... nhưng toi luôn rất trân trọng tình bạn này!</p>
       <p>Năm mới 2027 chúc Thanh luôn bình an, mạnh khỏe, visual đỉnh chóp và đạt được tất cả những gì mong ước nhé! 🌸</p>
     `,
     voucherHeader: "VOUCHER ĐỘC QUYỀN CHO THANH",
@@ -86,7 +86,7 @@ function detectProfileFromInput(inputStr) {
 class SoundFX {
   constructor() {
     this.ctx = null;
-    this.isMuted = false;
+    this.isMuted = true;
     this.ambientInterval = null;
     this.initAudioContext();
   }
@@ -267,6 +267,7 @@ class SoundFX {
   }
 }
 
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const sounds = new SoundFX();
 
 // ==================== CÁNH HOA CANVAS 60FPS ====================
@@ -282,7 +283,7 @@ class FallingPetals {
     for (let i = 0; i < count; i++) {
       this.petals.push(this.spawn(true));
     }
-    this.loop();
+    if (!reducedMotion.matches) this.loop();
   }
 
   resize() {
@@ -337,7 +338,7 @@ class ConfettiEngine {
     this.canvas = document.getElementById(canvasId);
     this.ctx = this.canvas.getContext('2d');
     this.particles = [];
-    this.colors = ['#ffd152', '#ff1744', '#ff4081', '#00e676', '#ffeb3b', '#fff'];
+    this.colors = ['#edcd95', '#b94336', '#f6e8c9', '#c88857'];
     this.resize();
     window.addEventListener('resize', () => this.resize(), { passive: true });
     this.loop();
@@ -350,6 +351,7 @@ class ConfettiEngine {
 
   blast(x, y, count = 45) {
     sounds.playFanfare();
+    if (reducedMotion.matches) return;
     for (let i = 0; i < count; i++) {
       const angle = Math.random() * Math.PI * 2;
       const speed = 4 + Math.random() * 8;
@@ -476,6 +478,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('screen-2'),
     document.getElementById('screen-3')
   ];
+  screens.forEach((screen, index) => { screen.inert = index !== 0; });
   const progressSegments = document.querySelectorAll('.progress-segment');
   const stepBadge = document.getElementById('step-badge');
 
@@ -490,7 +493,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     currentScreen = index;
-    stepBadge.textContent = `MÀN ${currentScreen + 1}/${totalScreens}`;
+    stepBadge.textContent = `0${currentScreen + 1} / 0${totalScreens} • ${['LỜI CHÀO', 'KỶ NIỆM', 'ĐÓN LỘC', 'THƯ THƯƠNG'][currentScreen]}`;
+    screens.forEach((screen, idx) => { screen.inert = idx !== index; if (idx === index) screen.scrollTop = 0; });
 
     progressSegments.forEach((seg, idx) => {
       if (idx <= currentScreen) {
@@ -515,6 +519,7 @@ document.addEventListener('DOMContentLoaded', () => {
   musicToggleBtn.addEventListener('click', () => {
     sounds.unlock();
     isMusicPlaying = !isMusicPlaying;
+    musicToggleBtn.setAttribute('aria-pressed', String(isMusicPlaying));
     if (isMusicPlaying) {
       diskIcon.classList.remove('paused');
       sounds.isMuted = false;
@@ -545,13 +550,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!matched) {
       // Báo lỗi ngắn gọn, KHÔNG tiết lộ tên để chống dò tên
       sounds.playWarning();
-      nameErrorMsg.textContent = "⚠️ Ủa ai zị, không đúng r má ơi!";
+      nameErrorMsg.textContent = "no no no, không phải tên này rùi";
       nameErrorMsg.classList.remove('hidden');
       userNameInput.focus();
       return;
     }
 
     nameErrorMsg.classList.add('hidden');
+    userNameInput.blur();
     applyProfile(matched);
     resetWheelState();
     goToScreen(1);
@@ -575,12 +581,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let isScanCompleted = false;
 
   function startScanning(e) {
-    if (isScanCompleted) return;
+    if (isScanCompleted || scanHoldTimer) return;
     if (e.cancelable) e.preventDefault();
     sounds.unlock();
 
     scannerPadArea.classList.add('scanning');
-    fpStatusText.innerHTML = `<span style="color: #ffeb3b;">⚡ ĐANG QUÉT DỮ LIỆU CỦA ${activeProfile.name.toUpperCase()}...</span>`;
+    fpStatusText.innerHTML = `<span style="color: #ffeb3b;">ĐANG MỞ KỶ NIỆM CỦA ${activeProfile.name.toUpperCase()}…</span>`;
 
     if (navigator.vibrate) {
       navigator.vibrate([60, 40, 60, 40, 100]);
@@ -600,12 +606,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isScanCompleted) return;
     scannerPadArea.classList.remove('scanning');
     clearTimeout(scanHoldTimer);
+    scanHoldTimer = null;
     clearInterval(scanInterval);
-    fpStatusText.innerHTML = `<strong>ĐẶT VÀ GIỮ NGÓN TAY</strong><br>vào vòng tròn để quét dữ liệu`;
+    fpStatusText.innerHTML = `<strong>CHẠM VÀ GIỮ MỘT CHÚT</strong><br>để những kỷ niệm ùa về`;
   }
 
   function completeScan() {
     isScanCompleted = true;
+    clearTimeout(scanHoldTimer);
+    scanHoldTimer = null;
     clearInterval(scanInterval);
     scannerPadArea.classList.remove('scanning');
 
@@ -634,10 +643,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  fpBtn.addEventListener('mousedown', startScanning);
-  fpBtn.addEventListener('touchstart', startScanning, { passive: false });
-  window.addEventListener('mouseup', stopScanning);
-  window.addEventListener('touchend', stopScanning);
+  fpBtn.addEventListener('pointerdown', startScanning);
+  window.addEventListener('pointerup', stopScanning);
+  window.addEventListener('pointercancel', stopScanning);
+  fpBtn.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.repeat && !isScanCompleted) { e.preventDefault(); completeScan(); }
+    else if (e.key === ' ' && !e.repeat) startScanning(e);
+  });
+  fpBtn.addEventListener('keyup', stopScanning);
+  fpBtn.addEventListener('blur', stopScanning);
 
   btnToWheel.addEventListener('click', () => {
     goToScreen(2);
@@ -660,32 +674,32 @@ document.addEventListener('DOMContentLoaded', () => {
   const slices = [
     {
       text: "Bao 1 chầu trà sữa 🧋",
-      color: "#e91e63",
+      color: "#a53630",
       des: "Đặc quyền VIP Tết 2027: Được bạn thân bao trọn gói 01 ly trà sữa size L, full topping, 100% đường 100% đá (hoặc tùy chọn). Hạn dùng: Ngay khi rủ là phải đi!"
     },
     {
       text: "Visual thăng hạng 🌸",
-      color: "#9c27b0",
+      color: "#bf6c43",
       des: "Vận may sắc đẹp nở rộ! Năm mới da dẻ mịn màng, visual đỉnh nóc kịch trần, ăn thả ga không lo tăng cân, bước chân ra ngõ ai cũng ngoái nhìn khen tấm tắc!"
     },
     {
       text: "Đi ăn chầu thứ 3 🍜",
-      color: "#f44336",
+      color: "#87302b",
       des: "Chỉ tiêu bắt buộc năm mới: Hai đứa nhất định phải xách xe đi ăn chầu thứ 3 để phá vỡ kỷ lục 2 lần của năm cũ. Bất kỳ ai bùng kèo sẽ bị phạt bao trọn gói!"
     },
     {
       text: "Tiền vào như nước 💰",
-      color: "#ff9800",
+      color: "#a53630",
       des: "Ví tiền phồng to, tài khoản nổ ting ting liên tục, thưởng Tết ngập tràn! Lời khuyên phong thủy: Nhớ trích 10% hoa hồng mời bạn thân đi ăn để lộc lá duy trì cả năm!"
     },
     {
       text: "Vé tâm sự không quạu 💬",
-      color: "#2196f3",
+      color: "#bf6c43",
       des: "Vé bảo hiểm tinh thần trọn đời: Được quyền nhắn tin hoặc gọi điện xàm xí, than thở thâu đêm suốt sáng mà đối phương không được phép cúp máy hay quạu quọ!"
     },
     {
       text: "Lì xì lộc lá đầu năm 🧧",
-      color: "#4caf50",
+      color: "#87302b",
       des: "Nhận ngay vía tài lộc may mắn từ vũ trụ và bạn thân! Hãy bấm sang màn tiếp theo và cào phong bao lì xì để mở bức thư cùng lộc MoMo may mắn nhé!"
     }
   ];
@@ -714,7 +728,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function drawWheel(angle) {
-    const size = wheelCanvas.width;
+    const size = 300;
+    const pixelRatio = window.devicePixelRatio || 1;
+    if (wheelCanvas.width !== size * pixelRatio) { wheelCanvas.width = size * pixelRatio; wheelCanvas.height = size * pixelRatio; }
+    wheelCtx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
     const center = size / 2;
     const radius = center - 8;
     const sliceAngle = (Math.PI * 2) / slices.length;
@@ -740,8 +757,9 @@ document.addEventListener('DOMContentLoaded', () => {
       wheelCtx.rotate(startAngle + sliceAngle / 2);
       wheelCtx.textAlign = "right";
       wheelCtx.fillStyle = "#fff";
-      wheelCtx.font = "bold 13px 'Montserrat', sans-serif";
-      wheelCtx.fillText(slice.text, radius - 15, 5);
+      wheelCtx.font = "600 11px 'Be Vietnam Pro', sans-serif";
+      const labels = [['Một chầu', 'trà sữa'], ['Rạng rỡ', 'cả năm'], ['Hẹn một', 'bữa ngon'], ['Tài lộc', 'đầy nhà'], ['Một vé', 'tâm sự'], ['Lì xì', 'đầu năm']];
+      labels[i].forEach((line, row) => wheelCtx.fillText(line, radius - 18, row * 16 - 4));
       wheelCtx.restore();
     });
   }
@@ -759,7 +777,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const startAngle = currentWheelAngle;
     const totalRotation = targetAngle - startAngle;
-    const duration = 3800;
+    const duration = reducedMotion.matches ? 1 : 3800;
     const startTime = performance.now();
 
     let lastTickAngle = startAngle;
@@ -829,23 +847,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ==================== SCREEN 3: THẺ CÀO LÌ XÌ BẰNG TAY (SCRATCH CARD) ====================
   const scratchCanvas = document.getElementById('scratch-canvas');
-  const scratchCtx = scratchCanvas.getContext('2d');
+  const scratchCtx = scratchCanvas.getContext('2d', { willReadFrequently: true });
   const scratchContainer = document.getElementById('scratch-container');
-  const scratchPercentEl = document.getElementById('scratch-percent');
+  let scratchPercentEl = document.getElementById('scratch-percent');
+  const openLetterBtn = document.getElementById('btn-open-letter');
+  let lastScratchCheck = 0;
   const scratchStatusBar = document.getElementById('scratch-status-bar');
 
   let isScratching = false;
   let isCardCleared = false;
 
   function initScratchCard() {
+    scratchContainer.querySelector('.scratch-underlayer').inert = true;
+    openLetterBtn.hidden = false;
     const rect = scratchContainer.getBoundingClientRect();
     scratchCanvas.width = rect.width;
     scratchCanvas.height = rect.height;
 
     const grad = scratchCtx.createLinearGradient(0, 0, rect.width, rect.height);
-    grad.addColorStop(0, '#ffd152');
-    grad.addColorStop(0.5, '#f39c12');
-    grad.addColorStop(1, '#ffb703');
+    grad.addColorStop(0, '#f4dfb4');
+    grad.addColorStop(0.5, '#dbb475');
+    grad.addColorStop(1, '#f0d49c');
     scratchCtx.fillStyle = grad;
     scratchCtx.fillRect(0, 0, rect.width, rect.height);
 
@@ -875,7 +897,10 @@ document.addEventListener('DOMContentLoaded', () => {
     scratchCtx.fill();
 
     sounds.playScratch();
-    checkScratchProgress();
+    if (performance.now() - lastScratchCheck > 100) {
+      lastScratchCheck = performance.now();
+      checkScratchProgress();
+    }
   }
 
   function checkScratchProgress() {
@@ -894,7 +919,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const percent = Math.round((transparentCount / totalSampled) * 100);
     scratchPercentEl.textContent = `${percent}%`;
 
-    if (percent > 40) {
+    if (percent > 50) revealLetter();
+  }
+
+  function revealLetter() {
+    if (!isCardCleared) {
+      scratchContainer.querySelector('.scratch-underlayer').inert = false;
+      openLetterBtn.hidden = true;
       isCardCleared = true;
       scratchCanvas.style.transition = 'opacity 0.6s ease';
       scratchCanvas.style.opacity = '0';
@@ -906,6 +937,8 @@ document.addEventListener('DOMContentLoaded', () => {
       confetti.blast(window.innerWidth / 2, window.innerHeight * 0.5, 70);
     }
   }
+
+  openLetterBtn.addEventListener('click', revealLetter);
 
   scratchCanvas.addEventListener('mousedown', (e) => { isScratching = true; scratch(e); });
   scratchCanvas.addEventListener('mousemove', scratch);
@@ -950,6 +983,7 @@ document.addEventListener('DOMContentLoaded', () => {
     scratchPercentEl.textContent = '0%';
     scratchStatusBar.innerHTML = `<span>✨ Tiến độ cào: <strong id="scratch-percent">0%</strong> (Cào > 50% để mở bung)</span>`;
 
+    scratchPercentEl = document.getElementById('scratch-percent');
     userNameInput.value = '';
     goToScreen(0);
   });

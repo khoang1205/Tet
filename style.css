@@ -1114,3 +1114,122 @@ html, body {
   from { transform: scale(0.85); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+/* Trạm gửi lộc — warm paper, vermilion and quiet gold. */
+:root { --festive-gold: #eac887; --bright-gold: #dbb56f; --cream-white: #fff7e7; }
+html, body { position: relative; background: #761f25; color: #fff3dc; }
+body { background-image: radial-gradient(ellipse at 70% 15%, #ab3c37 0, transparent 58%), repeating-linear-gradient(0deg, #ffffff02 0 1px, transparent 1px 4px); }
+body::after { content: ''; position: fixed; inset: 20px; border: 1px solid #edc98c30; pointer-events: none; }
+#petal-canvas { opacity: .28; }
+.story-app { max-width: 540px; background: #8a29282b; }
+.story-header { padding: max(20px, env(safe-area-inset-top)) 24px 14px; gap: 16px; }
+.story-progress-bar { height: 2px; gap: 8px; }
+.progress-segment { background: #f4d8ab25; }
+.progress-segment .fill { box-shadow: none; }
+.story-step-badge { background: none; padding: 0; font: 600 10px 'Be Vietnam Pro', sans-serif; letter-spacing: 1px; }
+.brand-wordmark { font-size: 10px; letter-spacing: 2px; color: #ffe9c8; }
+.icon-control-btn { width: 36px; height: 36px; background: transparent; border-color: #eac88755; }
+.disk-icon { font-size: 20px; }
+.story-slider { min-height: 0; }
+.story-screen { overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; }
+.screen-content { height: auto; min-height: 100%; padding: 22px 28px max(24px, env(safe-area-inset-bottom)); gap: 24px; }
+.screen-content > * { flex-shrink: 0; }
+.hero-content { justify-content: center; gap: 17px; }
+.festive-badge { border: none; background: none; font-size: 9px; letter-spacing: 2px; padding: 0; font-weight: 500; }
+.badge-dot { width: 5px; height: 5px; background: #eac887; box-shadow: none; }
+.main-title { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px, 7.7vw, 42px); line-height: 1.22; font-weight: 400; letter-spacing: -1.4px; }
+.main-title em { color: #efc987; font-weight: 400; }
+.hero-subtitle { font-size: 12px; line-height: 1.9; color: #e6bcab; }
+.envelope-scene { width: 260px; height: 194px; position: relative; margin: 12px 0 0; }
+.gift-envelope { position: absolute; width: 170px; height: 156px; left: 45px; top: 28px; background: #bd493b; border: 1px solid #eab57280; border-radius: 5px 5px 12px 12px; transform: rotate(-7deg); box-shadow: 7px 16px 32px #390d2440; }
+.envelope-note { position: absolute; width: 146px; height: 116px; left: 11px; top: -27px; background: #fff0d5; color: #9c493c; border: 5px solid #f8e3bc; padding: 18px 5px; font: 13px/1.8 Georgia, serif; transform: rotate(3deg); }
+.envelope-note strong { font-weight: 400; font-style: italic; }
+.envelope-pocket { position: absolute; inset: 0; background: linear-gradient(145deg, #c7503d, #ab302d); clip-path: polygon(0 0, 50% 38%, 100% 0, 100% 100%, 0 100%); border-radius: 4px 4px 10px 10px; }
+.envelope-pocket::after { content: ''; position: absolute; inset: 14px 10px 10px; border: 1px solid #efc88750; border-radius: 3px; }
+.envelope-seal { position: absolute; top: 58px; left: 58px; width: 52px; height: 52px; border-radius: 50%; background: #edcc8e; color: #96362e; outline: 1px solid #ecc887; outline-offset: 4px; font: italic 24px/52px Georgia, serif; }
+.envelope-caption { position: absolute; bottom: 13px; left: 0; right: 0; color: #f4cf99; font-size: 7px; letter-spacing: 2px; }
+.envelope-spark { position: absolute; color: #eac887; }
+.spark-one { right: 12px; top: 20px; font-size: 26px; }
+.spark-two { left: 9px; bottom: 16px; font-size: 32px; }
+.name-selection-card { padding: 0; border: none; background: none; backdrop-filter: none; gap: 10px; max-width: 340px; text-align: left; }
+.name-label { font-size: 11px; color: #f3d5b8; font-weight: 400; }
+.name-input { border: 1px solid #dfb68866; border-radius: 7px; background: #631b202b; text-align: left; padding: 14px 16px; font: 400 16px 'Be Vietnam Pro', sans-serif; color: #fff1dc; }
+.name-input::placeholder { color: #d1a291; font-size: 12px; }
+.name-input:focus { background: #651f24; box-shadow: 0 0 0 3px #eac88720; border-color: #eac887; }
+.hero-dialogue-box { padding: 0; border: 0; background: none; backdrop-filter: none; order: 7; }
+.avatar-speaker { display: none; }
+.speech-bubble p { color: #d8ab98; font: 10px/1.5 'Be Vietnam Pro', sans-serif; text-align: center; }
+.hero-action-bottom { width: 100%; max-width: 340px; }
+.btn-start-action, .btn-next-screen, .btn-primary-popup { background: #edcd95; color: #702b28; border-radius: 7px; box-shadow: 0 4px 12px #47161a22; animation: none; font-family: 'Be Vietnam Pro', sans-serif; font-size: 12px; font-weight: 700; padding: 16px 20px; }
+.btn-start-action { width: 100%; justify-content: space-between; }
+.arrow-blink { font-size: 21px; font-weight: 400; }
+.hero-footnote { order: 8; font-size: 8px; letter-spacing: 1.8px; color: #d4a58d; margin-top: 10px; }
+.corner-blossom { position: absolute; color: #d9a16b; opacity: .22; pointer-events: none; font-family: Georgia, serif; }
+.blossom-left { top: 160px; left: -50px; font-size: 145px; transform: rotate(20deg); }
+.blossom-right { right: -42px; bottom: 90px; font-size: 130px; }
+.mini-tag { background: none; font-size: 9px; letter-spacing: 1.4px; padding: 0; }
+.mini-title { font: 400 30px/1.25 Georgia, 'Times New Roman', serif; color: #fff0d8; margin-top: 14px; }
+.mini-sub { color: #e6bcab; font-size: 12px; margin-top: 10px; line-height: 1.7; }
+.scanner-pad-wrapper { margin: 60px auto 100px; }
+.fp-icon { color: #edcd95; filter: none; }
+.fingerprint-btn { box-shadow: none; background: #963b32; border: 1px solid #eac887; touch-action: none; }
+.fp-ring { inset: 0; border-width: 1px; }
+.fp-instruction { line-height: 1.8; font-size: 12px; text-shadow: none; }
+.revealed-dashboard { height: auto; gap: 20px; }
+.warning-alert-bar { background: none; border: none; color: #eac887; font-size: 9px; line-height: 1.7; }
+.stats-spin-grid { gap: 12px; }
+.spin-item-box { min-height: 156px; }
+.item-back { background: #fff2db; border: 1px solid #e2bb84; border-radius: 5px; padding: 14px; gap: 8px; }
+.item-front { background: #722422; border-radius: 5px; }
+.item-sub { font-size: 11px; line-height: 1.6; }
+.item-label { font-size: 11px; }
+.item-value, .val-big { color: #a33a30; }
+.back-highlight { background: #f5e4c4; }
+.wheel-stage { width: min(310px, 100%); height: auto; aspect-ratio: 1; margin: 36px auto; border: 1px solid #dfbd7b; border-radius: 50%; padding: 8px; box-shadow: 0 0 0 7px #eac88712; }
+.wheel-center-pin { background: #f6dfb1; border: 4px solid #963c32; color: #7c2927; width: 64px; height: 64px; }
+.wheel-pointer { color: #f6dfb1; animation: none; }
+.wheel-result-banner { background: #72242255; border-color: #c49b65; padding: 16px; }
+.wheel-tip { font-size: 12px; }
+.scratch-card-container { height: auto; max-width: 420px; border-radius: 8px; margin: 0 auto; }
+.scratch-underlayer { position: relative; height: auto; min-height: 460px; padding: 28px 24px; gap: 22px; background: #fff2db; border: 1px solid #edcf9b; border-radius: 8px; }
+.secret-envelope-header h3 { font: 400 25px Georgia, serif; padding-top: 25px; color: #9b3a30; }
+.heart-pulse { display: none; }
+.stamp-pill { font-size: 8px; padding: 5px 9px; letter-spacing: 2px; border-radius: 0; }
+.secret-text { font-size: 13px; line-height: 1.85; gap: 12px; }
+.secret-text, .secret-text * { user-select: text; -webkit-user-select: text; }
+.letter-signature { font: italic 14px Georgia, serif; color: #a25543; text-align: right; }
+.voucher-ticket { background: #f6e4c2; border-color: #ba8852; border-radius: 0; padding: 16px 10px; }
+.ticket-name { font-size: 12px; margin: 8px 0; line-height: 1.7; }
+.ticket-header { color: #9a5933; }
+.btn-momo-claim { background: #a63832; border-radius: 6px; box-shadow: none; padding: 13px 8px; font-size: 12px; }
+.btn-momo-qr { border: none; color: #934a39; padding: 12px; }
+.scratch-status-bar { font-size: 10px; line-height: 1.6; }
+.open-letter-btn { background: transparent; color: #efd2a0; border: 1px solid #eac88770; border-radius: 6px; padding: 12px 22px; cursor: pointer; }
+.btn-restart-app { background: none; border: none; color: #e1b49b; padding: 12px; }
+.prize-modal-dialog, .qr-modal-dialog { background: #fff2db; border: 1px solid #eac887; border-radius: 12px; max-height: calc(100dvh - 40px); overflow: auto; }
+.prize-modal-title { font: 400 27px/1.3 Georgia, serif; color: #94372e; }
+.prize-modal-badge { background: none; font-size: 9px; }
+.prize-modal-desc-box { background: transparent; border-color: #d0a773; }
+button:focus-visible, a:focus-visible { outline: 3px solid #eac887; outline-offset: 4px; }
+.desktop-greeting { display: none; }
+@media (min-width: 1000px) {
+  .story-app { margin-left: 49%; max-width: 500px; border-left: 1px solid #eac88725; border-right: 1px solid #eac88725; }
+  .desktop-greeting { display: flex; flex-direction: column; position: fixed; left: max(7%, calc((100vw - 1200px)/2)); top: 50%; transform: translateY(-50%); width: 36%; }
+  .edition { font-size: 11px; letter-spacing: 4px; color: #dfb793; }
+  .year-mark { position: relative; font: 180px/.85 Georgia, serif; letter-spacing: -12px; color: #e8c18a; margin: 30px 0; width: 270px; }
+  .year-flower { position: absolute; font-size: 125px; right: -60px; top: 90px; color: #d8946c; }
+  .desktop-greeting p { font: 32px/1.4 Georgia, serif; color: #f4ddbb; }
+  .greeting-line { height: 1px; width: 50px; background: #ca9669; margin: 25px 0; }
+  .desktop-greeting small { font-size: 8px; letter-spacing: 2px; color: #d3a180; }
+}
+@media (max-width: 500px) {
+  body::after { display: none; }
+  .story-header { padding: max(14px, env(safe-area-inset-top)) 20px 8px; gap: 12px; }
+  .screen-content { padding: 20px 22px 28px; }
+  .hero-content { gap: 15px; }
+  .envelope-scene { transform: scale(.9); height: 180px; margin-top: 0; }
+  .brand-wordmark { font-size: 9px; letter-spacing: 1px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  #petal-canvas, #confetti-canvas { display: none; }
+}
